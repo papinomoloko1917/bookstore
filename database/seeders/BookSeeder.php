@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class BookSeeder extends Seeder
@@ -54,15 +54,15 @@ class BookSeeder extends Seeder
             $imageNamePath = str_replace(' ', '_', $title).'.png';
             $imagePath = asset('storage/books/Brodsky/'.$imageNamePath);
 
-            Book::create([
+            Product::create([
                 'title' => $title,
                 'image' => $imagePath,
                 'description' => $description,
                 'price' => fake()->numberBetween(1000, 3900),
                 'quantity' => fake()->numberBetween(0, 30),
+                'category' => 'books',
                 'hit' => fake()->boolean(10),
             ]);
-
         }
     }
 }

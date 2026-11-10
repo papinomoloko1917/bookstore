@@ -2,14 +2,17 @@
 
 use Livewire\Component;
 
-new class extends Component {
+new class extends Component
+{
     //
 };
 ?>
 
 <div class="navbar bg-base-100 shadow-sm">
     <div class="flex-1">
-        <a class="btn btn-ghost text-xl">daisyUI</a>
+        <a href="{{ route('product.index') }}" class="select-none text-3xl font-bold"
+            wire:navigate>{{ config('app.name') }}
+        </a>
     </div>
     <div class="flex-none">
         <div class="dropdown dropdown-end">
