@@ -4,15 +4,36 @@ use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination;
+
+    public string $search = '';
+
+    #[On('product-search')]
+    public function searchProducts(string $query): void
+    {
+        $this->search = $query;
+        $this->resetPage();
+    }
+
+    #[On('close-search')]
+    public function searchClose()
+    {
+        $this->search = '';
+        $this->resetPage();
+    }
 
     #[Computed]
     public function products()
     {
-        return Product::OrderBy('id')->paginate(6);
+        return Product::query()
+            ->when($this->search, function ($query) {
+                $query->where('title', 'ilike', '%' . $this->search . '%')->orderByRaw('CASE WHEN title ILIKE ? THEN 0 ELSE 1 END', [$this->search . '%']);
+            })
+            ->orderBy('title')
+            ->paginate(6);
     }
 };
 ?>
@@ -26,6 +47,6 @@ new class extends Component
         @endforelse
     </div>
     <div class="pt-5">
-        {{ $this->products->links() }}
+        {{ $this->products->links('components.pagination.daisyui') }}
     </div>
 </div>

@@ -2,8 +2,7 @@
 
 use Livewire\Component;
 
-new class extends Component
-{
+new class extends Component {
     //
 };
 ?>
@@ -14,9 +13,13 @@ new class extends Component
             wire:navigate>{{ config('app.name') }}
         </a>
     </div>
-    <div class="flex-none">
+    <div class="flex-none flex items-center gap-2">
+        <livewire:header.search />
         <div class="dropdown dropdown-end">
+
+
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+
                 <div class="indicator">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -37,6 +40,7 @@ new class extends Component
             </div>
         </div>
         <div class="dropdown dropdown-end">
+
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
                     <img alt="Tailwind CSS Navbar component"
