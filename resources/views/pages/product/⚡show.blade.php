@@ -10,13 +10,13 @@ new class extends Component {
     #[Computed]
     public function product()
     {
-        return Product::find($this->id);
+        return Product::findOrFail($this->id);
     }
 };
 ?>
 
 <div>
-    <livewire:breadcrumbs :product="$this->product" />
+    <x-breadcrumbs :product="$this->product" />
     <div class="hero bg-base-200 pt-5">
         <div class="hero-content flex-col lg:flex-row">
             <img alt="{{ $this->product->title }}" src="{{ $this->product->image }}"

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -26,14 +26,17 @@ new class extends Component {
     }
 
     #[Computed]
-    public function products()
+    public function products(): LengthAwarePaginator
     {
-        return Product::query()
-            ->when($this->search, function ($query) {
-                $query->where('title', 'ilike', '%' . $this->search . '%')->orderByRaw('CASE WHEN title ILIKE ? THEN 0 ELSE 1 END', [$this->search . '%']);
-            })
-            ->orderBy('title')
-            ->paginate(6);
+        $search = trim($this->search);
+
+        $query = Product::query();
+
+        if ($search !== '') {
+            $query->where('title', 'ilike', "%{$search}%")->orderByRaw('CASE WHEN title ILIKE ? THEN 0 ELSE 1 END', ["{$search}%"]);
+        }
+
+        return $query->orderBy('title')->paginate(6);
     }
 };
 ?>
@@ -41,7 +44,7 @@ new class extends Component {
 <div>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
         @forelse ($this->products as $product)
-            <livewire:product.card-product :product="$product" :key="'product' . $product->id" />
+            <x-product.card-product :product="$product" :key="'product' . $product->id" />
         @empty
             <span>Пусто...</span>
         @endforelse

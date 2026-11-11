@@ -1,10 +1,6 @@
 <?php
 use App\Models\Product;
-
 use Illuminate\Support\Str;
-use Livewire\Component;
-
-new class extends Component {};
 ?>
 
 @php

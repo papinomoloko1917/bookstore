@@ -4,19 +4,14 @@ use Livewire\Component;
 
 new class extends Component {
     public bool $showSearch = false;
-
-    public function toggleSearch()
-    {
-        $this->showSearch = !$this->showSearch;
-    }
 };
 ?>
 
 <div>
     <input x-ref="searchInput" type="text" placeholder="Поиск" class="input w-24 md:w-auto" wire:show="showSearch"
-        wire:cloak wire:input="$dispatch('product-search', { query: $event.target.value })" />
+        wire:cloak x-on:input.debounce.300ms="$dispatch('product-search', { query: $event.target.value })" />
 
-    <button type="button" x-on:click="$wire.showSearch = 'true';
+    <button type="button" x-on:click="$wire.showSearch = true;
     $nextTick(() => $refs.searchInput.focus());"
         class="btn btn-ghost btn-circle" wire:show="!showSearch">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

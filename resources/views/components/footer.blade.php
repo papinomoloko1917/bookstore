@@ -1,12 +1,3 @@
-<?php
-
-use Livewire\Component;
-
-new class extends Component {
-    //
-};
-?>
-
 <div class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
     <nav class="grid grid-flow-col gap-4">
         <a class="link link-hover">About us</a>

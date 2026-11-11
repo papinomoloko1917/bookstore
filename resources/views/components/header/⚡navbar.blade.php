@@ -14,7 +14,11 @@ new class extends Component {
         </a>
     </div>
     <div class="flex-none flex items-center gap-2">
-        <livewire:header.search />
+
+        @if (request()->routeIs('product.index'))
+            <livewire:header.search />
+        @endif
+
         <div class="dropdown dropdown-end">
 
 

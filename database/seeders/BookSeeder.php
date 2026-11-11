@@ -54,7 +54,7 @@ class BookSeeder extends Seeder
             $imageNamePath = str_replace(' ', '_', $title).'.png';
             $imagePath = asset('storage/books/Brodsky/'.$imageNamePath);
 
-            Product::create([
+            Product::firstOrCreate([
                 'title' => $title,
                 'image' => $imagePath,
                 'description' => $description,
