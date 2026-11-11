@@ -54,15 +54,17 @@ class BookSeeder extends Seeder
             $imageNamePath = str_replace(' ', '_', $title).'.png';
             $imagePath = asset('storage/books/Brodsky/'.$imageNamePath);
 
-            Product::firstOrCreate([
-                'title' => $title,
-                'image' => $imagePath,
-                'description' => $description,
-                'price' => fake()->numberBetween(1000, 3900),
-                'quantity' => fake()->numberBetween(0, 30),
-                'category' => 'books',
-                'hit' => fake()->boolean(10),
-            ]);
+            Product::firstOrCreate(
+                [
+                    'title' => $title,
+                    'category' => 'books',
+                    'image' => $imagePath,
+                    'description' => $description,
+                    'price' => fake()->numberBetween(1000, 3900),
+                    'quantity' => fake()->numberBetween(0, 30),
+                    'hit' => fake()->boolean(10),
+                ],
+            );
         }
     }
 }

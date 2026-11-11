@@ -19,7 +19,7 @@ new class extends Component {
     }
 
     #[On('close-search')]
-    public function searchClose()
+    public function searchClose(): void
     {
         $this->search = '';
         $this->resetPage();

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
             class="card-title hover:text-blue-600 transition-all duration-300" wire:navigate>{{ $product->title }}</a>
         <p>{{ Str::limit($product->description) }}</p>
         <div class="card-actions justify-end">
-            <button class="btn btn-primary">Купить</button>
+            <button class="btn btn-neutral btn-sm">Купить</button>
         </div>
     </div>
 </div>

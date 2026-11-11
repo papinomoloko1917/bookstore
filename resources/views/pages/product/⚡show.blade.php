@@ -8,7 +8,7 @@ new class extends Component {
     public int $id;
 
     #[Computed]
-    public function product()
+    public function product(): Product
     {
         return Product::findOrFail($this->id);
     }
