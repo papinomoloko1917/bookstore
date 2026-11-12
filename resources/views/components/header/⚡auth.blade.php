@@ -1,9 +1,19 @@
 <?php
+use Illuminate\Support\Facades\Auth;
 
 use Livewire\Component;
 
 new class extends Component {
-    //
+    public function logout()
+    {
+        Auth::logout();
+
+        request()->session()->invalidate();
+
+        request()->session()->regenerateToken();
+
+        return $this->redirectRoute('product.index');
+    }
 };
 ?>
 
@@ -23,12 +33,12 @@ new class extends Component {
                 </a>
             </li>
             <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
+            <li><button type="button" wire:click="logout">Logout</button></li>
         </ul>
     @endauth
 
     @guest
-        <a class="btn btn-neutral btn-sm">Регистрация</a>
-        <a class="btn btn-neutral btn-sm">Вход</a>
+        <a href="{{ route('auth.register') }}" class="btn btn-neutral btn-sm" wire:navigate>Регистрация</a>
+        <a href="{{ route('auth.login') }}" class="btn btn-neutral btn-sm" wire:navigate>Вход</a>
     @endguest
 </div>
