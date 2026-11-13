@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Number;
 use App\Models\Product;
 use Illuminate\Support\Str;
 ?>
@@ -18,10 +19,27 @@ use Illuminate\Support\Str;
 
 
     <div class="card-body">
-        <a href="{{ route('product.show', $product->id) }}" class="card-title" wire:navigate>{{ $product->title }}</a>
+        <a href="{{ route('product.show', $product->id) }}" class="card-title" wire:navigate>{{ $product->title }}
+            @if ($product->hit)
+                <div class="badge badge-xs badge-secondary">Хит</div>
+            @endif
+        </a>
+
         <p>{{ Str::limit($product->description) }}</p>
-        <div class="card-actions justify-end">
-            <button class="btn btn-neutral btn-sm">Купить</button>
+        <div class="card-actions flex items-center justify-between mt-4">
+            <div class="flex flex-col">
+                <span class="text-lg font-semibold">
+                    {{ number_format($product->price, 0, ',', ' ') }} ₽
+                </span>
+                <span class="text-gray-500 text-xs">
+                    {{ $product->quantity }}шт.
+                </span>
+            </div>
+
+
+            <button class="btn btn-neutral btn-sm">
+                Купить
+            </button>
         </div>
     </div>
 </div>

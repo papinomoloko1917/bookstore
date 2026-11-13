@@ -62,7 +62,7 @@ class BookSeeder extends Seeder
                     'description' => $description,
                     'price' => fake()->numberBetween(1000, 3900),
                     'quantity' => fake()->numberBetween(0, 30),
-                    'hit' => fake()->boolean(10),
+                    'hit' => fake()->boolean(30),
                 ],
             );
         }
