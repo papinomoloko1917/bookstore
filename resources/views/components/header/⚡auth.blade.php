@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 use Livewire\Component;
@@ -12,17 +13,18 @@ new class extends Component {
 
         request()->session()->regenerateToken();
 
-        return $this->redirectRoute('product.index');
+        return $this->redirectRoute('product.index', navigate: true);
     }
 };
 ?>
 
 <div class="dropdown dropdown-end">
     @auth
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
-                <img alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+            <div class="w-8 h-8 rounded-full bg-neutral text-white grid place-items-center">
+                <span class="text-lg font-semibold">
+                    {{ Str::upper(Str::substr(Auth::user()->name, 0, 1)) }}
+                </span>
             </div>
         </div>
         <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
@@ -33,7 +35,7 @@ new class extends Component {
                 </a>
             </li>
             <li><a>Settings</a></li>
-            <li><button type="button" wire:click="logout">Logout</button></li>
+            <li><button type="button" wire:click="logout">Выход</button></li>
         </ul>
     @endauth
 
