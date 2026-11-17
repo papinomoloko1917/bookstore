@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
         </a>
     </figure>
 
-
     <div class="card-body">
         <a href="{{ route('product.show', $product->id) }}" class="card-title" wire:navigate>{{ $product->title }}
             @if ($product->hit)
