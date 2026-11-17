@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Support\Collection;
 use RuntimeException;
 
 class CartService
@@ -42,5 +43,21 @@ class CartService
             unset($cart[$productId]);
         }
         session()->put('cart', $cart);
+    }
+
+    public function getItems(): Collection
+    {
+        $cart = session()->get('cart', []);
+
+        $productIds = array_keys($cart);
+
+        $products = Product::whereIn('id', $productIds)->get();
+
+        $items = $products->map(function ($item) use ($cart) {
+            $quantityInCart = $cart[$item->id];
+            return ['product' => $item, 'quantityInCart' => $quantityInCart];
+        });
+
+        return $items;
     }
 }
