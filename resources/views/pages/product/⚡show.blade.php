@@ -23,9 +23,6 @@ new class extends Component
 ?>
 
 <div>
-    @php
-        dump(session()->all());
-    @endphp
     <x-breadcrumbs :product="$this->product" />
     <div class="hero bg-base-200 pt-5">
         <div class="hero-content flex-col lg:flex-row">
