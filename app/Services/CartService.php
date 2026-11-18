@@ -60,4 +60,20 @@ class CartService
 
         return $items;
     }
+
+    public function getTotal(): float
+    {
+        $items = $this->getItems();
+
+        return $items->sum(function ($item) {
+            return $item['product']->price * $item['quantityInCart'];
+        });
+    }
+
+    public function getCount(): int
+    {
+        $cart = session()->get('cart', []);
+
+        return array_sum($cart);
+    }
 }
