@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Product;
-use App\Services\CartService;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -13,11 +12,6 @@ new class extends Component
     public function product(): Product
     {
         return Product::findOrFail($this->id);
-    }
-
-    public function addToCart(CartService $cartService, int $productId): void
-    {
-        $cartService->add($productId);
     }
 };
 ?>
@@ -36,7 +30,7 @@ new class extends Component
                 <p class="py-6">
                     {{ $this->product->description }}
                 </p>
-                <button class="btn btn-primary" wire:click="addToCart({{ $this->product->id }})">Купить</button>
+                <livewire:product.add-to-cart-button :productId="$this->product->id" />
             </div>
         </div>
     </div>

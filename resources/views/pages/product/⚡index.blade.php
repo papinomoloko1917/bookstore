@@ -1,12 +1,14 @@
 <?php
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 use App\Models\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\On;
 
-new class extends Component {
+new class extends Component
+{
     use WithPagination;
 
     public string $search = '';
@@ -33,7 +35,8 @@ new class extends Component {
         $query = Product::query();
 
         if ($search !== '') {
-            $query->where('title', 'ilike', "%{$search}%")->orderByRaw('CASE WHEN title ILIKE ? THEN 0 ELSE 1 END', ["{$search}%"]);
+            $query->where('title', 'ilike', "%{$search}%")
+                ->orderByRaw('CASE WHEN title ILIKE ? THEN 0 ELSE 1 END', ["{$search}%"]);
         }
 
         return $query->orderBy('title')->paginate(6);
@@ -44,7 +47,7 @@ new class extends Component {
 <div>
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
         @forelse ($this->products as $product)
-            <x-product.card-product :product="$product" :key="'product' . $product->id" />
+            <x-product.card-product :product="$product" :key="'product'.$product->id" />
         @empty
             <span>Пусто...</span>
         @endforelse
