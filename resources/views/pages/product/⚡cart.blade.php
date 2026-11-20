@@ -24,41 +24,33 @@ new class extends Component
                 $product = $item['product'];
             @endphp
 
-            <li class="p-4 pb-2 text-xs tracking-wide opacity-60">Test</li>
+            <li class="p-4 pb-2 text-xs tracking-wide opacity-60">#{{ $product->sku }}</li>
 
             <li class="list-row">
                 <div>
-                    <img
-                        class="rounded-box size-10"
-                        alt="Tailwind CSS list item"
-                        src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-                    />
+                    <img class="rounded-box size-10" alt="Tailwind CSS list item" src="{{ $product->image }}" />
                 </div>
                 <div>
                     <div>{{ $product->title }}</div>
-                    <div class="text-xs font-semibold uppercase opacity-60">Remaining Reason</div>
+                    <div class="text-xs font-semibold opacity-60">{{ $product->price }}₽</div>
                 </div>
-                <button class="btn btn-square btn-ghost">
-                    <span>{{ $quantity }}</span>
-                </button>
-                <button class="btn btn-square btn-ghost">
-                    <svg
-                        aria-label="Favorite"
-                        class="size-[1.2em]"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                    >
-                        <g
-                            stroke-linejoin="round"
-                            stroke-linecap="round"
-                            stroke-width="2"
-                            fill="none"
-                            stroke="currentColor"
-                        >
-                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-                        </g>
-                    </svg>
-                </button>
+                <div>
+                    <livewire:product.add-to-cart-button
+                        :product-id="$product->id"
+                        class="btn-square btn-ghost btn-sm"
+                        icon="minus"
+                        action="remove"
+                    />
+
+                    <button class="btn btn-square btn-ghost btn-sm">{{ $quantity }}</button>
+
+                    <livewire:product.add-to-cart-button
+                        :product-id="$product->id"
+                        class="btn-square btn-ghost btn-sm"
+                        icon="plus"
+                        action="add"
+                    />
+                </div>
             </li>
         @empty
             <span>Пусто...</span>

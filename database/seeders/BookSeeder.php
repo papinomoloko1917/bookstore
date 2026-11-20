@@ -51,12 +51,13 @@ class BookSeeder extends Seeder
         ];
 
         foreach ($brodskyBooks as $title => $description) {
-            $imageNamePath = str_replace(' ', '_', $title).'.png';
-            $imagePath = asset('storage/books/Brodsky/'.$imageNamePath);
+            $imageNamePath = str_replace(' ', '_', $title) . '.png';
+            $imagePath = asset('storage/books/Brodsky/' . $imageNamePath);
 
             Product::firstOrCreate(
                 [
                     'title' => $title,
+                    'sku' => fake()->unique()->numberBetween(10000, 99999),
                     'category' => 'books',
                     'image' => $imagePath,
                     'description' => $description,
