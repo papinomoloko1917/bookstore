@@ -30,12 +30,12 @@
         <div class="card-actions mt-4 flex items-center justify-between">
             <div class="flex flex-col">
                 <span class="text-lg font-semibold">
-                    {{ number_format($product->price, 0, ',', ' ') }} ₽
+                    {{ number_format($product->price, 0, ' ,', ' ') }} ₽
                 </span>
                 <span class="text-xs text-gray-500"> {{ $product->quantity }}шт. </span>
             </div>
 
-            <livewire:product.add-to-cart-button :productId="$product->id" size="sm" />
+            <livewire:product.add-to-cart-button :productId="$product->id" size="sm" action="add" />
         </div>
     </div>
 </div>

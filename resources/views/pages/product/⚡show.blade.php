@@ -30,7 +30,7 @@ new class extends Component
                 <p class="py-6">
                     {{ $this->product->description }}
                 </p>
-                <livewire:product.add-to-cart-button :productId="$this->product->id" />
+                <livewire:product.add-to-cart-button :productId="$this->product->id" action="add" />
             </div>
         </div>
     </div>

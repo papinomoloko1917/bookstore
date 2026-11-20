@@ -2,15 +2,24 @@
 
 use App\Services\CartService;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 new class extends Component
 {
-    public $products;
+    #[On('cart-updated')]
+    public function refreshCart(): void {}
 
-    public function mount(CartService $cartService)
+    #[Computed]
+    public function products()
     {
-        $this->products = $cartService->getItems();
+        return app(CartService::class)->getItems();
+    }
+
+    #[Computed]
+    public function sum()
+    {
+        return app(CartService::class)->getTotal();
     }
 };
 ?>
@@ -32,9 +41,14 @@ new class extends Component
                 </div>
                 <div>
                     <div>{{ $product->title }}</div>
-                    <div class="text-xs font-semibold opacity-60">{{ $product->price }}₽</div>
+                    <div class="text-xs font-semibold opacity-60">
+                        {{ number_format($product->price, 0, ' ,', ' ') }} ₽
+                    </div>
                 </div>
                 <div>
+                    <div class="text-center">
+                        <span>{{ number_format($product->price * $quantity, 0, ' ,', ' ') }} ₽</span>
+                    </div>
                     <livewire:product.add-to-cart-button
                         :product-id="$product->id"
                         class="btn-square btn-ghost btn-sm"
@@ -42,7 +56,7 @@ new class extends Component
                         action="remove"
                     />
 
-                    <button class="btn btn-square btn-ghost btn-sm">{{ $quantity }}</button>
+                    <button class="btn btn-square btn-ghost btn-sm">{{ number_format($quantity, 0, ' ,', ' ') }}</button>
 
                     <livewire:product.add-to-cart-button
                         :product-id="$product->id"
@@ -53,7 +67,12 @@ new class extends Component
                 </div>
             </li>
         @empty
-            <span>Пусто...</span>
+            <span>Корзина пуста</span>
         @endforelse
     </ul>
+    @if ($this->sum > 0)
+        <div class="text-md mt-4 text-right font-semibold">
+            <span> Сумма: <span>{{ number_format($this->sum, 0, ' ,', ' ') }} ₽</span> </span>
+        </div>
+    @endif
 </div>

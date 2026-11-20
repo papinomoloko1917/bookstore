@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::livewire('/products', 'pages::product.index')->name('product.index');
+Route::livewire('/', 'pages::product.index')->name('product.index');
 Route::livewire('/{id}/product', 'pages::product.show')->name('product.show');
 Route::livewire('/product/cart', 'pages::product.cart')->name('product.cart');
 

@@ -29,7 +29,13 @@ new class extends Component
 
 <button
     {{ $attributes->class(['btn btn-neutral']) }}
-    {{ $this->action === 'add' ? 'wire:click="addToCart"' : 'wire:click="removeToCart"' }}
+    @if ($action === 'add')
+        wire:click="addToCart"
+    @elseif ($action === 'remove')
+        wire:click="removeToCart"
+    @else
+        ''
+    @endif
 >
     @if ($slots->has('default'))
         {{ $slot }}
